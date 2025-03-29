@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 // Mock profile data for demonstration
@@ -10,6 +9,8 @@ export interface UserProfile {
   avatarUrl: string | null;
   phoneNumber: string;
   birthday: string;
+  favoriteVerse: string;
+  favoriteVerseReference: string;
 }
 
 interface AuthContextType {
@@ -27,7 +28,9 @@ const defaultProfile: UserProfile = {
   role: "Volunteer",
   avatarUrl: null,
   phoneNumber: "(555) 123-4567",
-  birthday: "April 15"
+  birthday: "April 15",
+  favoriteVerse: "For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life.",
+  favoriteVerseReference: "John 3:16"
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
