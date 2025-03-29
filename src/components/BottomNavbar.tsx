@@ -7,9 +7,9 @@ const BottomNavbar: React.FC = () => {
   const location = useLocation();
   
   const tabs = [
-    { name: "Home", icon: Home, path: "/" },
     { name: "Events", icon: Calendar, path: "/events" },
     { name: "Groups", icon: Users, path: "/groups" },
+    { name: "Home", icon: Home, path: "/" },
     { name: "Profile", icon: User, path: "/profile" },
     { name: "Settings", icon: Settings, path: "/settings" }
   ];
@@ -19,6 +19,7 @@ const BottomNavbar: React.FC = () => {
       {tabs.map((tab) => {
         const isActive = location.pathname === tab.path;
         const IconComponent = tab.icon;
+        const isHome = tab.name === "Home";
         
         return (
           <Link 
@@ -26,7 +27,7 @@ const BottomNavbar: React.FC = () => {
             to={tab.path} 
             className={`flex flex-col items-center ${
               isActive ? 'text-church-gold' : 'text-church-darkBrown'
-            }`}
+            } ${isHome ? 'bg-church-tan rounded-md px-2 py-1' : ''}`}
           >
             <IconComponent size={20} />
             <span className="text-xs mt-1">{tab.name}</span>
