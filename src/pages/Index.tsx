@@ -89,7 +89,7 @@ const Index = () => {
           />
           
           <PageIndicator
-            totalPages={3}
+            totalPages={5}
             currentPage={0}
           />
         </div>
