@@ -73,11 +73,6 @@ const Index = () => {
               location="Fellowship Hall"
             />
             
-            <BibleVerseWidget 
-              verse="The LORD is my shepherd; I shall not want. He makes me lie down in green pastures."
-              reference="Psalm 23:1-2"
-            />
-            
             <ChurchEventsWidget 
               services={upcomingServices} 
               events={upcomingEvents} 
@@ -92,6 +87,11 @@ const Index = () => {
               bannerImageUrl={churchInfo.bannerImageUrl}
               phoneNumber={churchInfo.phoneNumber}
               email={churchInfo.email}
+            />
+            
+            <BibleVerseWidget 
+              verse="The LORD is my shepherd; I shall not want. He makes me lie down in green pastures."
+              reference="Psalm 23:1-2"
             />
           </div>
         </div>
