@@ -1,3 +1,4 @@
+
 import React from 'react';
 import TopNavbar from '@/components/TopNavbar';
 import BottomNavbar from '@/components/BottomNavbar';
@@ -28,7 +29,7 @@ const Profile = () => {
     if (!userProfile?.favoriteVerse) return null;
     
     return (
-      <Card className="shadow-md hover:shadow-md transition-shadow border-church-tan overflow-hidden relative h-64">
+      <Card className="shadow-md hover:shadow-md transition-shadow border-church-tan overflow-hidden relative h-64 mt-4">
         <div className="absolute inset-0 w-full h-full">
           <img 
             src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=800&q=80"
@@ -78,7 +79,7 @@ const Profile = () => {
           </div>
         ) : (
           <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="md:col-span-2">
+            <div className="md:col-span-2 space-y-4">
               <Card>
                 <CardHeader className="flex flex-row items-center gap-4 pb-2">
                   <Avatar className="h-16 w-16">
@@ -140,6 +141,9 @@ const Profile = () => {
                   </Tabs>
                 </CardContent>
               </Card>
+              
+              {/* Display favorite verse below profile info if available */}
+              {userProfile?.favoriteVerse && <FavoriteVerseCard />}
             </div>
             
             <div className="space-y-4">
@@ -152,14 +156,11 @@ const Profile = () => {
                 email={churchInfo.email}
               />
               
-              {userProfile?.favoriteVerse ? (
-                <FavoriteVerseCard />
-              ) : (
-                <BibleVerseWidget 
-                  verse="Trust in the LORD with all your heart, and do not lean on your own understanding."
-                  reference="Proverbs 3:5"
-                />
-              )}
+              {/* Always display the daily verse widget on the side */}
+              <BibleVerseWidget 
+                verse="Trust in the LORD with all your heart, and do not lean on your own understanding."
+                reference="Proverbs 3:5"
+              />
             </div>
           </div>
         )}
