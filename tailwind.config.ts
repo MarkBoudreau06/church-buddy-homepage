@@ -69,7 +69,7 @@ export default {
 					copper: '#A15D31',
 					tan: '#C89B7A',
 					cream: '#F2D8C1',
-					gold: '#B8860B',
+					gold: '#8B6914', // Darkened gold color (was B8860B)
 					lightCream: '#F9F5F0', // Adding lighter cream color for the background
 					primary: '#A15D31',
 					secondary: '#F2D8C1',
