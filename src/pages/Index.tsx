@@ -74,7 +74,7 @@ const Index = () => {
         onLogin={handleLogin}
       />
       
-      <main className="flex-1 overflow-auto px-4 py-4 space-y-4 bg-church-background">
+      <main className="flex-1 overflow-auto px-4 py-4 space-y-4 bg-white">
         <SmallGroupWidget 
           groupName="Young Adults" 
           memberCount={12} 

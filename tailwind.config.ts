@@ -68,11 +68,11 @@ export default {
 					copper: '#A15D31',
 					tan: '#C89B7A',
 					cream: '#F2D8C1',
-					gold: '#D4AF37',
+					gold: '#B8860B',
 					primary: '#A15D31',
 					secondary: '#F2D8C1',
 					accent: '#6E3818',
-					background: '#F9FAFB'
+					background: '#F2D8C1'
 				}
 			},
 			borderRadius: {

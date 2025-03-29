@@ -17,7 +17,7 @@ const SmallGroupWidget: React.FC<SmallGroupWidgetProps> = ({
   location = "Fellowship Hall"
 }) => {
   return (
-    <Card className="border border-church-tan shadow-sm hover:shadow-md transition-shadow bg-church-cream">
+    <Card className="border border-church-tan shadow-sm hover:shadow-md transition-shadow bg-church-background">
       <CardHeader className="pb-2">
         <CardTitle className="text-md flex items-center justify-between text-church-copper">
           <span className="flex items-center gap-2">
