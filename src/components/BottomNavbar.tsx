@@ -19,15 +19,14 @@ const BottomNavbar: React.FC = () => {
       {tabs.map((tab) => {
         const isActive = location.pathname === tab.path;
         const IconComponent = tab.icon;
-        const isHome = tab.name === "Home";
         
         return (
           <Link 
             key={tab.name} 
             to={tab.path} 
             className={`flex flex-col items-center ${
-              isActive ? 'text-church-gold' : 'text-church-darkBrown'
-            } ${isHome ? 'bg-church-tan rounded-md px-2 py-3 -my-3 w-48 justify-center' : ''}`}
+              isActive ? 'bg-church-tan text-church-gold rounded-md px-2 py-3 -my-3' : 'text-church-darkBrown'
+            }`}
           >
             <IconComponent size={20} />
             <span className="text-xs mt-1">{tab.name}</span>
