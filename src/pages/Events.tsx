@@ -1,4 +1,3 @@
-
 import React from 'react';
 import TopNavbar from '@/components/TopNavbar';
 import BottomNavbar from '@/components/BottomNavbar';
@@ -6,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar, Clock, MapPin } from 'lucide-react';
 import ChurchInfoWidget from '@/components/ChurchInfoWidget';
 import BibleVerseWidget from '@/components/BibleVerseWidget';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface EventItem {
   id: number;
@@ -89,6 +89,8 @@ const EventsWidget: React.FC<{ events: EventItem[] }> = ({ events }) => {
 };
 
 const Events = () => {
+  const { login } = useAuth();
+  
   // Mock data for services
   const services = [
     {
@@ -146,11 +148,7 @@ const Events = () => {
 
   return (
     <div className="flex flex-col h-screen bg-church-lightCream">
-      <TopNavbar 
-        userName="Guest" 
-        isLoggedIn={false}
-        onLogin={() => {}}
-      />
+      <TopNavbar onLogin={login} />
       
       <main className="flex-1 overflow-auto px-4 py-4 flex flex-col items-center bg-church-lightCream">
         <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-4">

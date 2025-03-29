@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import TopNavbar from '@/components/TopNavbar';
 import SmallGroupWidget from '@/components/SmallGroupWidget';
 import ChurchEventsWidget from '@/components/ChurchEventsWidget';
@@ -8,10 +8,10 @@ import ChurchInfoWidget from '@/components/ChurchInfoWidget';
 import AttendanceCodeWidget from '@/components/AttendanceCodeWidget';
 import BottomNavbar from '@/components/BottomNavbar';
 import { useToast } from "@/components/ui/use-toast";
+import { useAuth } from '@/contexts/AuthContext';
 
 const Index = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userName, setUserName] = useState("Guest");
+  const { login } = useAuth();
   const { toast } = useToast();
 
   // Mock data for upcoming services
@@ -47,22 +47,9 @@ const Index = () => {
     email: "info@gracecommunity.org"
   };
 
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-    setUserName("John Smith");
-    toast({
-      title: "Logged in successfully",
-      description: "Welcome back, John Smith!",
-    });
-  };
-
   return (
     <div className="flex flex-col h-screen bg-church-lightCream">
-      <TopNavbar 
-        userName={userName} 
-        isLoggedIn={isLoggedIn}
-        onLogin={handleLogin}
-      />
+      <TopNavbar onLogin={login} />
       
       <main className="flex-1 overflow-auto px-4 py-4 flex justify-center bg-church-lightCream">
         <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -72,8 +59,7 @@ const Index = () => {
               memberCount={12} 
               nextMeeting="Tomorrow, 7:00 PM" 
               location="Fellowship Hall"
-              isLoggedIn={isLoggedIn}
-              onLogin={handleLogin}
+              onLogin={login}
             />
             
             <ChurchEventsWidget 
@@ -81,7 +67,7 @@ const Index = () => {
               events={upcomingEvents} 
             />
             
-            <AttendanceCodeWidget isLoggedIn={isLoggedIn} />
+            <AttendanceCodeWidget />
           </div>
           
           <div className="space-y-4">
