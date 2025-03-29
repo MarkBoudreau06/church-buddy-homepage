@@ -1,15 +1,27 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import TopNavbar from '@/components/TopNavbar';
 import BottomNavbar from '@/components/BottomNavbar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
+import { useTheme } from '@/contexts/ThemeContext';
+import { toast } from 'sonner';
 
 const Settings = () => {
-  const [colorTheme, setColorTheme] = useState('natural');
-  const [notifications, setNotifications] = useState(true);
+  const { theme, setTheme } = useTheme();
+  const [notifications, setNotifications] = React.useState(true);
+
+  const handleThemeChange = (value: string) => {
+    setTheme(value as 'natural' | 'dark' | 'light' | 'blue');
+    toast.success(`Theme changed to ${value}`);
+  };
+
+  const handleNotificationChange = (checked: boolean) => {
+    setNotifications(checked);
+    toast.success(`Notifications ${checked ? 'enabled' : 'disabled'}`);
+  };
 
   return (
     <div className="flex flex-col h-screen bg-church-lightCream">
@@ -34,8 +46,8 @@ const Settings = () => {
                   </Label>
                 </div>
                 <Select 
-                  value={colorTheme} 
-                  onValueChange={setColorTheme}
+                  value={theme} 
+                  onValueChange={handleThemeChange}
                 >
                   <SelectTrigger id="color-theme" className="w-full border-church-tan">
                     <SelectValue placeholder="Select a color theme" />
@@ -61,7 +73,7 @@ const Settings = () => {
                   <Switch 
                     id="notifications" 
                     checked={notifications} 
-                    onCheckedChange={setNotifications}
+                    onCheckedChange={handleNotificationChange}
                     className="data-[state=checked]:bg-church-gold"
                   />
                 </div>
