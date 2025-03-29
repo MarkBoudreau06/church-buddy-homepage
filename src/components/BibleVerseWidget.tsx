@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Bible } from 'lucide-react';
+import { BookOpen } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface BibleVerseWidgetProps {
@@ -16,7 +16,7 @@ const BibleVerseWidget: React.FC<BibleVerseWidgetProps> = ({
     <Card className="border border-church-tan shadow-sm hover:shadow-md transition-shadow bg-white">
       <CardHeader className="pb-2">
         <CardTitle className="text-md flex items-center gap-2 text-church-copper">
-          <Bible size={18} />
+          <BookOpen size={18} />
           Daily Verse
         </CardTitle>
       </CardHeader>
