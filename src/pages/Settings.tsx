@@ -24,24 +24,24 @@ const Settings = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-church-lightCream">
+    <div className="flex flex-col h-screen">
       <TopNavbar 
         userName="Guest" 
         isLoggedIn={false}
         onLogin={() => {}}
       />
       
-      <main className="flex-1 overflow-auto px-4 py-4 flex flex-col items-center bg-church-lightCream">
+      <main className="flex-1 overflow-auto px-4 py-4 flex flex-col items-center">
         <div className="w-full max-w-md space-y-4">
-          <Card className="border border-church-tan shadow-sm">
+          <Card>
             <CardHeader>
-              <CardTitle className="text-xl text-church-darkBrown">Settings</CardTitle>
+              <CardTitle className="text-xl">Settings</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Color Theme Setting */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <Label htmlFor="color-theme" className="text-base font-medium text-church-darkBrown">
+                  <Label htmlFor="color-theme" className="text-base font-medium">
                     Color Theme
                   </Label>
                 </div>
@@ -49,7 +49,7 @@ const Settings = () => {
                   value={theme} 
                   onValueChange={handleThemeChange}
                 >
-                  <SelectTrigger id="color-theme" className="w-full border-church-tan">
+                  <SelectTrigger id="color-theme" className="w-full">
                     <SelectValue placeholder="Select a color theme" />
                   </SelectTrigger>
                   <SelectContent>
@@ -67,14 +67,13 @@ const Settings = () => {
               {/* Notifications Setting */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <Label htmlFor="notifications" className="text-base font-medium text-church-darkBrown">
+                  <Label htmlFor="notifications" className="text-base font-medium">
                     Notifications
                   </Label>
                   <Switch 
                     id="notifications" 
                     checked={notifications} 
                     onCheckedChange={handleNotificationChange}
-                    className="data-[state=checked]:bg-church-gold"
                   />
                 </div>
                 <p className="text-sm text-muted-foreground">

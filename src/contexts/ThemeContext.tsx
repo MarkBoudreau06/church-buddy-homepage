@@ -22,8 +22,8 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     localStorage.setItem('theme', theme);
     
     // Apply theme class to document body
-    document.body.className = '';
-    document.body.classList.add(`theme-${theme}`);
+    document.documentElement.className = '';
+    document.documentElement.classList.add(`theme-${theme}`);
   }, [theme]);
 
   return (
