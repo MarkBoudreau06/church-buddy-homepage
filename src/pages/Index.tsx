@@ -11,7 +11,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { useAuth } from '@/contexts/AuthContext';
 
 const Index = () => {
-  const { login } = useAuth();
+  const { login, isLoggedIn } = useAuth();
   const { toast } = useToast();
 
   // Mock data for upcoming services
@@ -67,7 +67,7 @@ const Index = () => {
               events={upcomingEvents} 
             />
             
-            <AttendanceCodeWidget />
+            <AttendanceCodeWidget isLoggedIn={isLoggedIn} />
           </div>
           
           <div className="space-y-4">
