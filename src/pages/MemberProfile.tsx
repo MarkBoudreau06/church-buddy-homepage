@@ -8,6 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ArrowLeft, BookOpen } from 'lucide-react';
 import BibleVerseWidget from '@/components/BibleVerseWidget';
 import { useAuth } from '@/contexts/AuthContext';
+import { Progress } from '@/components/ui/progress';
 
 const MemberProfile = () => {
   const { memberId } = useParams();
@@ -94,11 +95,11 @@ const MemberProfile = () => {
       .toUpperCase();
   };
   
-  // Get attendance bars data based on attendance percentage
-  const getAttendanceBars = (attendance: number) => {
-    if (attendance >= 70) return { filledBars: 3, color: "bg-green-500" };
-    if (attendance >= 40) return { filledBars: 2, color: "bg-yellow-500" };
-    return { filledBars: 1, color: "bg-red-500" };
+  // Get attendance data based on attendance percentage
+  const getAttendanceData = (attendance: number) => {
+    if (attendance >= 70) return { value: 100, colorClass: "bg-green-500" };
+    if (attendance >= 40) return { value: 66, colorClass: "bg-yellow-500" };
+    return { value: 33, colorClass: "bg-red-500" };
   };
 
   if (!member) {
@@ -123,8 +124,8 @@ const MemberProfile = () => {
     );
   }
 
-  // Calculate attendance bars based on percentage
-  const attendanceBars = getAttendanceBars(member.attendance);
+  // Calculate attendance data based on percentage
+  const attendanceData = getAttendanceData(member.attendance);
 
   return (
     <div className="flex flex-col h-screen bg-church-lightCream">
@@ -159,18 +160,7 @@ const MemberProfile = () => {
             <CardContent className="space-y-6">
               <div>
                 <h3 className="text-sm font-medium text-church-darkBrown mb-2">Attendance</h3>
-                <div className="flex items-center gap-2">
-                  <div className="flex gap-1 items-center">
-                    {[1, 2, 3].map((bar) => (
-                      <div 
-                        key={bar} 
-                        className={`h-5 w-5 rounded-sm ${
-                          bar <= attendanceBars.filledBars ? attendanceBars.color : 'bg-gray-200'
-                        }`}
-                      />
-                    ))}
-                  </div>
-                </div>
+                <Progress value={attendanceData.value} className="h-3 bg-gray-200" colorClass={attendanceData.colorClass} />
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

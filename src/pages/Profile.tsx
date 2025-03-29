@@ -1,4 +1,3 @@
-
 import React from 'react';
 import TopNavbar from '@/components/TopNavbar';
 import BottomNavbar from '@/components/BottomNavbar';
@@ -11,6 +10,7 @@ import BibleVerseWidget from '@/components/BibleVerseWidget';
 import ProfileEditForm from '@/components/ProfileEditForm';
 import { useAuth } from '@/contexts/AuthContext';
 import { BookOpen } from 'lucide-react';
+import { Progress } from '@/components/ui/progress';
 
 const Profile = () => {
   const { isLoggedIn, userProfile, login } = useAuth();
@@ -25,16 +25,16 @@ const Profile = () => {
     email: "info@gracecommunity.org"
   };
 
-  // Get attendance bars data based on attendance percentage
-  const getAttendanceBars = (attendance: number) => {
-    if (attendance >= 70) return { filledBars: 3, color: "bg-green-500" };
-    if (attendance >= 40) return { filledBars: 2, color: "bg-yellow-500" };
-    return { filledBars: 1, color: "bg-red-500" };
+  // Get attendance data based on attendance percentage
+  const getAttendanceData = (attendance: number) => {
+    if (attendance >= 70) return { value: 100, colorClass: "bg-green-500" };
+    if (attendance >= 40) return { value: 66, colorClass: "bg-yellow-500" };
+    return { value: 33, colorClass: "bg-red-500" };
   };
 
   // Mock attendance data for the profile
   const userAttendance = 75; // Setting a default attendance value
-  const attendanceBars = getAttendanceBars(userAttendance);
+  const attendanceData = getAttendanceData(userAttendance);
 
   const FavoriteVerseCard = () => {
     if (!userProfile?.favoriteVerse) return null;
@@ -133,17 +133,8 @@ const Profile = () => {
                       )}
                       <div>
                         <p className="text-sm font-medium text-church-darkBrown">Attendance:</p>
-                        <div className="flex items-center gap-2 mt-1">
-                          <div className="flex gap-1 items-center">
-                            {[1, 2, 3].map((bar) => (
-                              <div 
-                                key={bar} 
-                                className={`h-4 w-4 rounded-sm ${
-                                  bar <= attendanceBars.filledBars ? attendanceBars.color : 'bg-gray-200'
-                                }`}
-                              />
-                            ))}
-                          </div>
+                        <div className="mt-1">
+                          <Progress value={attendanceData.value} className="h-3 bg-gray-200" colorClass={attendanceData.colorClass} />
                         </div>
                       </div>
                     </TabsContent>
