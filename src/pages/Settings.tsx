@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Switch } from '@/components/ui/switch';
 
 const Settings = () => {
-  const [colorTheme, setColorTheme] = useState('gold');
+  const [colorTheme, setColorTheme] = useState('natural');
   const [notifications, setNotifications] = useState(true);
 
   return (
@@ -41,10 +41,10 @@ const Settings = () => {
                     <SelectValue placeholder="Select a color theme" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="gold">Gold (Default)</SelectItem>
-                    <SelectItem value="brown">Brown</SelectItem>
-                    <SelectItem value="copper">Copper</SelectItem>
-                    <SelectItem value="cream">Cream</SelectItem>
+                    <SelectItem value="natural">Natural (Default)</SelectItem>
+                    <SelectItem value="dark">Dark</SelectItem>
+                    <SelectItem value="light">Light</SelectItem>
+                    <SelectItem value="blue">Blue</SelectItem>
                   </SelectContent>
                 </Select>
                 <p className="text-sm text-muted-foreground">
