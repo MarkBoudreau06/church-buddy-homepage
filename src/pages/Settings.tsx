@@ -16,6 +16,7 @@ const Settings = () => {
   const handleThemeChange = (value: string) => {
     setTheme(value as 'natural' | 'dark' | 'light' | 'blue');
     toast.success(`Theme changed to ${value}`);
+    console.log(`Theme set to: ${value}`);
   };
 
   const handleNotificationChange = (checked: boolean) => {
