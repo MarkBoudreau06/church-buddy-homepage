@@ -23,7 +23,7 @@ const ChurchEventsWidget: React.FC<ChurchEventsWidgetProps> = ({
   events = [] 
 }) => {
   return (
-    <Card className="border border-church-tan shadow-sm hover:shadow-md transition-shadow bg-church-background">
+    <Card className="border border-church-tan shadow-sm hover:shadow-md transition-shadow bg-white">
       <CardHeader className="pb-2">
         <CardTitle className="text-md flex items-center gap-2 text-church-copper">
           <Calendar size={18} />

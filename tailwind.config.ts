@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -69,6 +70,7 @@ export default {
 					tan: '#C89B7A',
 					cream: '#F2D8C1',
 					gold: '#B8860B',
+					lightCream: '#F9F5F0', // Adding lighter cream color for the background
 					primary: '#A15D31',
 					secondary: '#F2D8C1',
 					accent: '#6E3818',
