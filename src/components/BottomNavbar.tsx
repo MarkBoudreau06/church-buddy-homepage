@@ -24,12 +24,14 @@ const BottomNavbar: React.FC = () => {
           <Link 
             key={tab.name} 
             to={tab.path} 
-            className={`flex flex-col items-center ${
-              isActive ? 'bg-church-tan text-church-darkBrown rounded-md px-4 py-4 -my-3' : 'text-church-brown'
-            }`}
+            className="flex flex-col items-center w-16"
           >
-            <IconComponent size={20} />
-            <span className="text-xs mt-1">{tab.name}</span>
+            <div className={`flex flex-col items-center ${
+              isActive ? 'bg-church-tan text-church-darkBrown rounded-md px-4 py-4 -my-3 w-full' : 'text-church-brown'
+            }`}>
+              <IconComponent size={20} />
+              <span className="text-xs mt-1">{tab.name}</span>
+            </div>
           </Link>
         );
       })}
