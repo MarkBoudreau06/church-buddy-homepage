@@ -1,3 +1,4 @@
+
 import React from 'react';
 import TopNavbar from '@/components/TopNavbar';
 import BottomNavbar from '@/components/BottomNavbar';
@@ -67,11 +68,11 @@ const Settings = () => {
         {!isLoggedIn ? (
           <div className="flex items-center justify-center w-full h-full">
             <Card className="w-full max-w-md mx-auto">
-              <CardHeader>
+              <CardHeader className="text-center">
                 <CardTitle className="text-xl text-church-gold">Login Required</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-church-darkBrown">
+              <CardContent className="space-y-4 flex flex-col items-center">
+                <p className="text-church-darkBrown text-center">
                   Please log in to access your settings.
                 </p>
                 <Button onClick={handleLogin} className="bg-church-gold text-white hover:bg-church-copper">
