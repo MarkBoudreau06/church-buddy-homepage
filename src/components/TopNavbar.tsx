@@ -21,7 +21,7 @@ const TopNavbar: React.FC<TopNavbarProps> = ({
         <span className="font-medium text-church-darkBrown">{userName}</span>
       </div>
       <div className="text-center font-bold text-lg text-church-gold">
-        Church Buddy
+        Shepherd
       </div>
       <div>
         {!isLoggedIn ? (

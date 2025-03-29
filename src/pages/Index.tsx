@@ -5,6 +5,7 @@ import SmallGroupWidget from '@/components/SmallGroupWidget';
 import ChurchEventsWidget from '@/components/ChurchEventsWidget';
 import BibleVerseWidget from '@/components/BibleVerseWidget';
 import ChurchInfoWidget from '@/components/ChurchInfoWidget';
+import AttendanceCodeWidget from '@/components/AttendanceCodeWidget';
 import BottomNavbar from '@/components/BottomNavbar';
 import { useToast } from "@/components/ui/use-toast";
 
@@ -77,6 +78,8 @@ const Index = () => {
               services={upcomingServices} 
               events={upcomingEvents} 
             />
+            
+            <AttendanceCodeWidget isLoggedIn={isLoggedIn} />
           </div>
           
           <div className="space-y-4">
