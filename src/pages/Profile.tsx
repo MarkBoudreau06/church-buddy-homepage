@@ -1,11 +1,11 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TopNavbar from '@/components/TopNavbar';
 import BottomNavbar from '@/components/BottomNavbar';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { User, LogOut, Calendar } from 'lucide-react';
+import { User, LogOut } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -17,20 +17,61 @@ import {
   SelectValue 
 } from "@/components/ui/select";
 import { format } from "date-fns";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Calendar as CalendarComponent } from "@/components/ui/calendar";
-import { cn } from "@/lib/utils";
 
 const Profile = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState("Guest");
-  const [birthday, setBirthday] = useState<Date>();
+  const [birthday, setBirthday] = useState<Date | undefined>();
+  const [birthMonth, setBirthMonth] = useState<string>("");
+  const [birthDay, setBirthDay] = useState<string>("");
+  const [birthYear, setBirthYear] = useState<string>("");
   const [denomination, setDenomination] = useState("");
   const { toast } = useToast();
+  
+  // Generate arrays for day, month, and year options
+  const months = [
+    { value: "1", label: "January" },
+    { value: "2", label: "February" },
+    { value: "3", label: "March" },
+    { value: "4", label: "April" },
+    { value: "5", label: "May" },
+    { value: "6", label: "June" },
+    { value: "7", label: "July" },
+    { value: "8", label: "August" },
+    { value: "9", label: "September" },
+    { value: "10", label: "October" },
+    { value: "11", label: "November" },
+    { value: "12", label: "December" }
+  ];
+  
+  // Generate days 1-31
+  const days = Array.from({ length: 31 }, (_, i) => ({ 
+    value: String(i + 1), 
+    label: String(i + 1) 
+  }));
+  
+  // Generate years from current year back 100 years
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: 100 }, (_, i) => ({ 
+    value: String(currentYear - i), 
+    label: String(currentYear - i) 
+  }));
+
+  // Update birthday whenever month, day, or year changes
+  useEffect(() => {
+    if (birthMonth && birthDay && birthYear) {
+      const newDate = new Date(
+        parseInt(birthYear), 
+        parseInt(birthMonth) - 1, 
+        parseInt(birthDay)
+      );
+      
+      // Check if date is valid
+      if (!isNaN(newDate.getTime())) {
+        setBirthday(newDate);
+      }
+    }
+  }, [birthMonth, birthDay, birthYear]);
   
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -45,6 +86,9 @@ const Profile = () => {
     setIsLoggedIn(false);
     setUserName("Guest");
     setBirthday(undefined);
+    setBirthMonth("");
+    setBirthDay("");
+    setBirthYear("");
     setDenomination("");
     toast({
       title: "Logged out",
@@ -142,32 +186,67 @@ const Profile = () => {
                   </div>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="birthday">Birthday</Label>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          id="birthday"
-                          variant="outline"
-                          className={cn(
-                            "w-full justify-start text-left font-normal border-church-tan",
-                            !birthday && "text-muted-foreground"
-                          )}
+                    <Label>Birthday</Label>
+                    <div className="grid grid-cols-3 gap-2">
+                      <div>
+                        <Select 
+                          value={birthMonth} 
+                          onValueChange={setBirthMonth}
                         >
-                          <Calendar className="mr-2 h-4 w-4" />
-                          {birthday ? format(birthday, "PPP") : <span>Select your birthday</span>}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0">
-                        <CalendarComponent
-                          mode="single"
-                          selected={birthday}
-                          onSelect={setBirthday}
-                          initialFocus
-                          disabled={(date) => date > new Date()}
-                          className="p-3 pointer-events-auto"
-                        />
-                      </PopoverContent>
-                    </Popover>
+                          <SelectTrigger className="border-church-tan">
+                            <SelectValue placeholder="Month" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {months.map(month => (
+                              <SelectItem key={month.value} value={month.value}>
+                                {month.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      <div>
+                        <Select 
+                          value={birthDay} 
+                          onValueChange={setBirthDay}
+                        >
+                          <SelectTrigger className="border-church-tan">
+                            <SelectValue placeholder="Day" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {days.map(day => (
+                              <SelectItem key={day.value} value={day.value}>
+                                {day.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      <div>
+                        <Select 
+                          value={birthYear} 
+                          onValueChange={setBirthYear}
+                        >
+                          <SelectTrigger className="border-church-tan">
+                            <SelectValue placeholder="Year" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {years.map(year => (
+                              <SelectItem key={year.value} value={year.value}>
+                                {year.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                    {birthday && (
+                      <p className="text-xs text-muted-foreground">
+                        Selected: {format(birthday, "PPP")}
+                      </p>
+                    )}
                   </div>
                   
                   <div className="space-y-2">
