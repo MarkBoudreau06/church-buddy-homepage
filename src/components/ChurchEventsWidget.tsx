@@ -32,27 +32,7 @@ const ChurchEventsWidget: React.FC<ChurchEventsWidgetProps> = ({
         </CardTitle>
       </CardHeader>
       <CardContent>
-        {/* Mini page indicator */}
-        <div className="flex justify-center mb-4">
-          <div className="flex gap-2">
-            <button
-              onClick={() => setActiveTab('services')}
-              className={`h-2 w-2 rounded-full ${
-                activeTab === 'services' ? 'bg-church-gold' : 'bg-church-tan'
-              }`}
-              aria-label="Show services"
-            />
-            <button
-              onClick={() => setActiveTab('events')}
-              className={`h-2 w-2 rounded-full ${
-                activeTab === 'events' ? 'bg-church-gold' : 'bg-church-tan'
-              }`}
-              aria-label="Show events"
-            />
-          </div>
-        </div>
-
-        {/* Tab labels */}
+        {/* Tab labels - now side by side horizontally */}
         <div className="flex justify-center mb-3">
           <div className="flex text-sm font-medium">
             <button

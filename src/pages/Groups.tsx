@@ -14,7 +14,7 @@ const Groups = () => {
       
       <main className="flex-1 overflow-auto px-4 py-4 flex flex-col items-center bg-church-lightCream">
         <div className="w-full max-w-[33%] space-y-4">
-          <h1 className="text-2xl font-bold text-church-darkBrown">Groups Page</h1>
+          {/* Content will go here */}
         </div>
       </main>
       

@@ -41,8 +41,6 @@ const Profile = () => {
       
       <main className="flex-1 overflow-auto px-4 py-4 flex flex-col items-center bg-church-lightCream">
         <div className="w-full max-w-[33%] space-y-6">
-          <h1 className="text-2xl font-bold text-church-darkBrown">My Profile</h1>
-          
           <Card className="border border-church-tan shadow-sm hover:shadow-md transition-shadow bg-white">
             <CardHeader className="pb-2">
               <CardTitle className="text-md flex items-center gap-2 text-church-copper">

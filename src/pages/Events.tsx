@@ -142,8 +142,6 @@ const Events = () => {
       
       <main className="flex-1 overflow-auto px-4 py-4 flex flex-col items-center bg-church-lightCream">
         <div className="w-full max-w-[33%] space-y-6">
-          <h1 className="text-2xl font-bold text-church-darkBrown">Services & Events</h1>
-          
           <ServicesWidget services={services} />
           <EventsWidget events={events} />
         </div>
