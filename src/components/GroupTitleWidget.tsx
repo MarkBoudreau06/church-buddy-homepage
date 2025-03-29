@@ -2,7 +2,7 @@
 import React from 'react';
 import { Users } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
-import { dynamicIconImports } from 'lucide-react/dynamicIconImports';
+import dynamicIconImports from 'lucide-react/dynamicIconImports';
 import { icons } from 'lucide-react';
 
 interface GroupTitleWidgetProps {
