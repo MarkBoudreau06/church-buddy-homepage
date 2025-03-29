@@ -4,6 +4,7 @@ import TopNavbar from '@/components/TopNavbar';
 import SmallGroupWidget from '@/components/SmallGroupWidget';
 import ChurchEventsWidget from '@/components/ChurchEventsWidget';
 import BibleVerseWidget from '@/components/BibleVerseWidget';
+import ChurchInfoWidget from '@/components/ChurchInfoWidget';
 import BottomNavbar from '@/components/BottomNavbar';
 import { useToast } from "@/components/ui/use-toast";
 
@@ -35,6 +36,16 @@ const Index = () => {
     }
   ];
 
+  // Church info data
+  const churchInfo = {
+    name: "Grace Community Church",
+    denomination: "Non-denominational",
+    address: "123 Faith Avenue, Graceville, CA 90210",
+    bannerImageUrl: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=800&q=80",
+    phoneNumber: "(555) 123-4567",
+    email: "info@gracecommunity.org"
+  };
+
   const handleLogin = () => {
     setIsLoggedIn(true);
     setUserName("John Smith");
@@ -52,24 +63,37 @@ const Index = () => {
         onLogin={handleLogin}
       />
       
-      <main className="flex-1 overflow-auto px-4 py-4 flex flex-col items-center bg-church-lightCream">
-        <div className="w-full max-w-[33%] space-y-4">
-          <SmallGroupWidget 
-            groupName="Young Adults" 
-            memberCount={12} 
-            nextMeeting="Tomorrow, 7:00 PM" 
-            location="Fellowship Hall"
-          />
+      <main className="flex-1 overflow-auto px-4 py-4 flex justify-center bg-church-lightCream">
+        <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="md:col-span-2 space-y-4">
+            <SmallGroupWidget 
+              groupName="Young Adults" 
+              memberCount={12} 
+              nextMeeting="Tomorrow, 7:00 PM" 
+              location="Fellowship Hall"
+            />
+            
+            <BibleVerseWidget 
+              verse="The LORD is my shepherd; I shall not want. He makes me lie down in green pastures."
+              reference="Psalm 23:1-2"
+            />
+            
+            <ChurchEventsWidget 
+              services={upcomingServices} 
+              events={upcomingEvents} 
+            />
+          </div>
           
-          <BibleVerseWidget 
-            verse="The LORD is my shepherd; I shall not want. He makes me lie down in green pastures."
-            reference="Psalm 23:1-2"
-          />
-          
-          <ChurchEventsWidget 
-            services={upcomingServices} 
-            events={upcomingEvents} 
-          />
+          <div className="space-y-4">
+            <ChurchInfoWidget 
+              name={churchInfo.name}
+              denomination={churchInfo.denomination}
+              address={churchInfo.address}
+              bannerImageUrl={churchInfo.bannerImageUrl}
+              phoneNumber={churchInfo.phoneNumber}
+              email={churchInfo.email}
+            />
+          </div>
         </div>
       </main>
       
