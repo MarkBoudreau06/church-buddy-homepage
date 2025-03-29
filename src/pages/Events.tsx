@@ -4,6 +4,8 @@ import TopNavbar from '@/components/TopNavbar';
 import BottomNavbar from '@/components/BottomNavbar';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar, Clock, MapPin } from 'lucide-react';
+import ChurchInfoWidget from '@/components/ChurchInfoWidget';
+import BibleVerseWidget from '@/components/BibleVerseWidget';
 
 interface EventItem {
   id: number;
@@ -132,6 +134,16 @@ const Events = () => {
     }
   ];
 
+  // Church info data
+  const churchInfo = {
+    name: "Grace Community Church",
+    denomination: "Non-denominational",
+    address: "123 Faith Avenue, Graceville, CA 90210",
+    bannerImageUrl: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=800&q=80",
+    phoneNumber: "(555) 123-4567",
+    email: "info@gracecommunity.org"
+  };
+
   return (
     <div className="flex flex-col h-screen bg-church-lightCream">
       <TopNavbar 
@@ -141,9 +153,27 @@ const Events = () => {
       />
       
       <main className="flex-1 overflow-auto px-4 py-4 flex flex-col items-center bg-church-lightCream">
-        <div className="w-full max-w-[33%] space-y-6">
-          <ServicesWidget services={services} />
-          <EventsWidget events={events} />
+        <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="md:col-span-2 space-y-4">
+            <ServicesWidget services={services} />
+            <EventsWidget events={events} />
+          </div>
+          
+          <div className="space-y-4">
+            <ChurchInfoWidget 
+              name={churchInfo.name}
+              denomination={churchInfo.denomination}
+              address={churchInfo.address}
+              bannerImageUrl={churchInfo.bannerImageUrl}
+              phoneNumber={churchInfo.phoneNumber}
+              email={churchInfo.email}
+            />
+            
+            <BibleVerseWidget 
+              verse="The LORD is my shepherd; I shall not want. He makes me lie down in green pastures."
+              reference="Psalm 23:1-2"
+            />
+          </div>
         </div>
       </main>
       
