@@ -27,7 +27,7 @@ const BottomNavbar: React.FC = () => {
             to={tab.path} 
             className={`flex flex-col items-center ${
               isActive ? 'text-church-gold' : 'text-church-darkBrown'
-            } ${isHome ? 'bg-church-tan rounded-md px-6 py-3 -my-3 w-24 justify-center' : ''}`}
+            } ${isHome ? 'bg-church-tan rounded-md px-6 py-3 -my-3 w-48 justify-center' : ''}`}
           >
             <IconComponent size={20} />
             <span className="text-xs mt-1">{tab.name}</span>
