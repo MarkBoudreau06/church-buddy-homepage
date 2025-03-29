@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import TopNavbar from '@/components/TopNavbar';
@@ -6,7 +5,6 @@ import BottomNavbar from '@/components/BottomNavbar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Progress } from '@/components/ui/progress';
 import { ArrowLeft, BookOpen } from 'lucide-react';
 import BibleVerseWidget from '@/components/BibleVerseWidget';
 import { useAuth } from '@/contexts/AuthContext';
@@ -96,11 +94,11 @@ const MemberProfile = () => {
       .toUpperCase();
   };
   
-  // Get color based on attendance percentage
-  const getAttendanceColor = (attendance: number) => {
-    if (attendance >= 70) return "bg-green-500";
-    if (attendance >= 40) return "bg-yellow-500";
-    return "bg-red-500";
+  // Get attendance bars data based on attendance percentage
+  const getAttendanceBars = (attendance: number) => {
+    if (attendance >= 70) return { filledBars: 3, color: "bg-green-500" };
+    if (attendance >= 40) return { filledBars: 2, color: "bg-yellow-500" };
+    return { filledBars: 1, color: "bg-red-500" };
   };
 
   if (!member) {
@@ -124,6 +122,9 @@ const MemberProfile = () => {
       </div>
     );
   }
+
+  // Calculate attendance bars based on percentage
+  const attendanceBars = getAttendanceBars(member.attendance);
 
   return (
     <div className="flex flex-col h-screen bg-church-lightCream">
@@ -158,12 +159,18 @@ const MemberProfile = () => {
             <CardContent className="space-y-6">
               <div>
                 <h3 className="text-sm font-medium text-church-darkBrown mb-2">Attendance</h3>
-                <div className="flex items-center gap-3">
-                  <Progress 
-                    value={member.attendance} 
-                    colorClass={getAttendanceColor(member.attendance)}
-                  />
-                  <span className="text-sm">{member.attendance}%</span>
+                <div className="flex items-center gap-2">
+                  <div className="flex gap-1 items-center">
+                    {[1, 2, 3].map((bar) => (
+                      <div 
+                        key={bar} 
+                        className={`h-5 w-5 rounded-sm ${
+                          bar <= attendanceBars.filledBars ? attendanceBars.color : 'bg-gray-200'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                  <span className="text-sm ml-2">{member.attendance}%</span>
                 </div>
               </div>
               

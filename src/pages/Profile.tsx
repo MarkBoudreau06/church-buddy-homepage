@@ -25,6 +25,17 @@ const Profile = () => {
     email: "info@gracecommunity.org"
   };
 
+  // Get attendance bars data based on attendance percentage
+  const getAttendanceBars = (attendance: number) => {
+    if (attendance >= 70) return { filledBars: 3, color: "bg-green-500" };
+    if (attendance >= 40) return { filledBars: 2, color: "bg-yellow-500" };
+    return { filledBars: 1, color: "bg-red-500" };
+  };
+
+  // Mock attendance data for the profile
+  const userAttendance = 75; // Setting a default attendance value
+  const attendanceBars = getAttendanceBars(userAttendance);
+
   const FavoriteVerseCard = () => {
     if (!userProfile?.favoriteVerse) return null;
     
@@ -120,6 +131,22 @@ const Profile = () => {
                           <p className="text-sm text-church-brown">{userProfile.favoriteVerseReference}</p>
                         </div>
                       )}
+                      <div>
+                        <p className="text-sm font-medium text-church-darkBrown">Attendance:</p>
+                        <div className="flex items-center gap-2 mt-1">
+                          <div className="flex gap-1 items-center">
+                            {[1, 2, 3].map((bar) => (
+                              <div 
+                                key={bar} 
+                                className={`h-4 w-4 rounded-sm ${
+                                  bar <= attendanceBars.filledBars ? attendanceBars.color : 'bg-gray-200'
+                                }`}
+                              />
+                            ))}
+                          </div>
+                          <span className="text-xs text-church-brown ml-1">{userAttendance}%</span>
+                        </div>
+                      </div>
                     </TabsContent>
                     <TabsContent value="edit" className="pt-4">
                       <ProfileEditForm />
