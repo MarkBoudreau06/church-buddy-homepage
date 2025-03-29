@@ -8,9 +8,16 @@ interface BibleVerseWidgetProps {
   reference: string;
 }
 
+// Fixed daily verse that will be consistent across all pages
+const todaysVerse = {
+  text: "Trust in the LORD with all your heart, and do not lean on your own understanding.",
+  reference: "Proverbs 3:5"
+};
+
 const BibleVerseWidget: React.FC<BibleVerseWidgetProps> = ({
-  verse = "For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life.",
-  reference = "John 3:16"
+  // Use optional props but default to today's verse
+  verse = todaysVerse.text,
+  reference = todaysVerse.reference
 }) => {
   // Array of nature background images
   const natureImages = useMemo(() => [
@@ -22,17 +29,18 @@ const BibleVerseWidget: React.FC<BibleVerseWidgetProps> = ({
     "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=800&q=80", // mountain with sun rays
   ], []);
 
-  // Select a random image from the array
-  const randomImage = useMemo(() => {
-    const randomIndex = Math.floor(Math.random() * natureImages.length);
-    return natureImages[randomIndex];
+  // Use a deterministic selection based on the day of the month instead of random
+  const backgroundImage = useMemo(() => {
+    const dayOfMonth = new Date().getDate();
+    const imageIndex = dayOfMonth % natureImages.length;
+    return natureImages[imageIndex];
   }, [natureImages]);
 
   return (
     <Card className="shadow-md hover:shadow-md transition-shadow border-church-tan overflow-hidden relative h-64">
       <div className="absolute inset-0 w-full h-full">
         <img 
-          src={randomImage} 
+          src={backgroundImage} 
           alt="Nature background" 
           className="object-cover w-full h-full"
         />

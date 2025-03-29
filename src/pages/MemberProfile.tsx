@@ -170,7 +170,6 @@ const MemberProfile = () => {
                       />
                     ))}
                   </div>
-                  <span className="text-sm ml-2">{member.attendance}%</span>
                 </div>
               </div>
               
@@ -236,10 +235,7 @@ const MemberProfile = () => {
               </CardContent>
             </Card>
           ) : (
-            <BibleVerseWidget 
-              verse="For we are his workmanship, created in Christ Jesus for good works, which God prepared beforehand, that we should walk in them."
-              reference="Ephesians 2:10"
-            />
+            <BibleVerseWidget />
           )}
         </div>
       </main>

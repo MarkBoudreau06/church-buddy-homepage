@@ -144,7 +144,6 @@ const Profile = () => {
                               />
                             ))}
                           </div>
-                          <span className="text-xs text-church-brown ml-1">{userAttendance}%</span>
                         </div>
                       </div>
                     </TabsContent>
@@ -184,10 +183,7 @@ const Profile = () => {
               />
               
               {/* Always display the daily verse widget on the side */}
-              <BibleVerseWidget 
-                verse="Trust in the LORD with all your heart, and do not lean on your own understanding."
-                reference="Proverbs 3:5"
-              />
+              <BibleVerseWidget />
             </div>
           </div>
         )}
