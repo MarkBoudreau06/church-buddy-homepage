@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import TopNavbar from '@/components/TopNavbar';
 import SmallGroupWidget from '@/components/SmallGroupWidget';
 import ChurchEventsWidget from '@/components/ChurchEventsWidget';
-import PageIndicator from '@/components/PageIndicator';
+import BibleVerseWidget from '@/components/BibleVerseWidget';
 import BottomNavbar from '@/components/BottomNavbar';
 import { useToast } from "@/components/ui/use-toast";
 
@@ -12,8 +12,8 @@ const Index = () => {
   const [userName, setUserName] = useState("Guest");
   const { toast } = useToast();
 
-  // Mock data for services
-  const services = [
+  // Mock data for upcoming service only
+  const upcomingService = [
     {
       id: 1,
       name: "Sunday Morning Worship",
@@ -21,39 +21,17 @@ const Index = () => {
       time: "10:30 AM - 12:00 PM",
       location: "Main Sanctuary",
       isService: true
-    },
-    {
-      id: 2,
-      name: "Wednesday Bible Study",
-      date: "Wednesday, April 24",
-      time: "7:00 PM - 8:30 PM",
-      location: "Fellowship Hall",
-      isService: true
     }
   ];
 
-  // Mock data for events
-  const events = [
+  // Mock data for nearest event only
+  const nextEvent = [
     {
       id: 3,
       name: "Youth Group Meeting",
       date: "Friday, April 19",
       time: "6:30 PM - 8:30 PM",
       location: "Youth Center"
-    },
-    {
-      id: 4,
-      name: "Community Outreach",
-      date: "Saturday, April 20",
-      time: "9:00 AM - 1:00 PM",
-      location: "Downtown Area"
-    },
-    {
-      id: 5,
-      name: "Church Picnic",
-      date: "Sunday, April 28",
-      time: "12:30 PM - 3:00 PM",
-      location: "Church Grounds"
     }
   ];
 
@@ -83,14 +61,14 @@ const Index = () => {
             location="Fellowship Hall"
           />
           
-          <ChurchEventsWidget 
-            services={services} 
-            events={events} 
+          <BibleVerseWidget 
+            verse="The LORD is my shepherd; I shall not want. He makes me lie down in green pastures."
+            reference="Psalm 23:1-2"
           />
           
-          <PageIndicator
-            totalPages={5}
-            currentPage={0}
+          <ChurchEventsWidget 
+            services={upcomingService} 
+            events={nextEvent} 
           />
         </div>
       </main>
