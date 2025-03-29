@@ -10,6 +10,7 @@ import ChurchInfoWidget from '@/components/ChurchInfoWidget';
 import BibleVerseWidget from '@/components/BibleVerseWidget';
 import ProfileEditForm from '@/components/ProfileEditForm';
 import { useAuth } from '@/contexts/AuthContext';
+import { BookOpen } from 'lucide-react';
 
 const Profile = () => {
   const { isLoggedIn, userProfile, login } = useAuth();
@@ -22,6 +23,37 @@ const Profile = () => {
     bannerImageUrl: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=800&q=80",
     phoneNumber: "(555) 123-4567",
     email: "info@gracecommunity.org"
+  };
+
+  const FavoriteVerseCard = () => {
+    if (!userProfile?.favoriteVerse) return null;
+    
+    return (
+      <Card className="shadow-md hover:shadow-md transition-shadow border-church-tan overflow-hidden relative h-64">
+        <div className="absolute inset-0 w-full h-full">
+          <img 
+            src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=800&q=80"
+            alt="Nature background" 
+            className="object-cover w-full h-full"
+          />
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+        </div>
+        
+        <CardHeader className="pb-2 relative z-10">
+          <CardTitle className="text-md flex items-center gap-2 text-white">
+            <BookOpen size={18} />
+            Your Favorite Verse
+          </CardTitle>
+        </CardHeader>
+        
+        <CardContent className="relative z-10">
+          <p className="text-white italic mb-2 text-lg font-medium">"{userProfile.favoriteVerse}"</p>
+          <p className="text-right text-church-cream font-medium">
+            — {userProfile.favoriteVerseReference || "Unknown reference"}
+          </p>
+        </CardContent>
+      </Card>
+    );
   };
 
   return (
@@ -115,10 +147,14 @@ const Profile = () => {
                 email={churchInfo.email}
               />
               
-              <BibleVerseWidget 
-                verse="Trust in the LORD with all your heart, and do not lean on your own understanding."
-                reference="Proverbs 3:5"
-              />
+              {userProfile?.favoriteVerse ? (
+                <FavoriteVerseCard />
+              ) : (
+                <BibleVerseWidget 
+                  verse="Trust in the LORD with all your heart, and do not lean on your own understanding."
+                  reference="Proverbs 3:5"
+                />
+              )}
             </div>
           </div>
         )}

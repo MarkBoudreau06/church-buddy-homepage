@@ -101,7 +101,7 @@ const MemberProfile = () => {
                 <div className="flex items-center gap-3">
                   <Progress 
                     value={member.attendance} 
-                    className={`h-2 ${getAttendanceColor(member.attendance)}`}
+                    colorClass={getAttendanceColor(member.attendance)}
                   />
                   <span className="text-sm">{member.attendance}%</span>
                 </div>

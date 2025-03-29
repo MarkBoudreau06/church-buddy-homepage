@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth, UserProfile } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
+import { Textarea } from '@/components/ui/textarea';
 
 const ProfileEditForm: React.FC = () => {
   const { userProfile, updateProfile } = useAuth();
@@ -14,9 +15,11 @@ const ProfileEditForm: React.FC = () => {
     email: userProfile?.email || '',
     phoneNumber: userProfile?.phoneNumber || '',
     birthday: userProfile?.birthday || '',
+    favoriteVerse: userProfile?.favoriteVerse || '',
+    favoriteVerseReference: userProfile?.favoriteVerseReference || '',
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
@@ -34,6 +37,8 @@ const ProfileEditForm: React.FC = () => {
       email: userProfile?.email || '',
       phoneNumber: userProfile?.phoneNumber || '',
       birthday: userProfile?.birthday || '',
+      favoriteVerse: userProfile?.favoriteVerse || '',
+      favoriteVerseReference: userProfile?.favoriteVerseReference || '',
     });
     setIsEditing(false);
   };
@@ -116,6 +121,29 @@ const ProfileEditForm: React.FC = () => {
             name="birthday" 
             value={formData.birthday} 
             onChange={handleInputChange} 
+          />
+        </div>
+        
+        <div className="space-y-1">
+          <Label htmlFor="favoriteVerse">Favorite Bible Verse</Label>
+          <Textarea 
+            id="favoriteVerse" 
+            name="favoriteVerse" 
+            value={formData.favoriteVerse} 
+            onChange={handleInputChange} 
+            placeholder="Enter your favorite Bible verse"
+            className="min-h-[80px]"
+          />
+        </div>
+        
+        <div className="space-y-1">
+          <Label htmlFor="favoriteVerseReference">Verse Reference</Label>
+          <Input 
+            id="favoriteVerseReference" 
+            name="favoriteVerseReference" 
+            value={formData.favoriteVerseReference} 
+            onChange={handleInputChange} 
+            placeholder="e.g., John 3:16"
           />
         </div>
       </div>
