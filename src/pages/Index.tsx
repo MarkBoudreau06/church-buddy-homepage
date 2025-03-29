@@ -80,10 +80,7 @@ const Index = () => {
               email={churchInfo.email}
             />
             
-            <BibleVerseWidget 
-              verse="The LORD is my shepherd; I shall not want. He makes me lie down in green pastures."
-              reference="Psalm 23:1-2"
-            />
+            <BibleVerseWidget />
           </div>
         </div>
       </main>

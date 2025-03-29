@@ -80,10 +80,7 @@ const Groups = () => {
                 email={churchInfo.email}
               />
               
-              <BibleVerseWidget 
-                verse="And let us consider how to stir up one another to love and good works."
-                reference="Hebrews 10:24"
-              />
+              <BibleVerseWidget />
             </div>
           </div>
         )}

@@ -4,8 +4,8 @@ import { BookOpen } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface BibleVerseWidgetProps {
-  verse: string;
-  reference: string;
+  verse?: string;
+  reference?: string;
 }
 
 // Fixed daily verse that will be consistent across all pages
