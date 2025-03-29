@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -100,9 +99,12 @@ const bibleVerses = {
   "Ephesians 2:8-9": "For by grace you have been saved through faith. And this is not your own doing; it is the gift of God, not a result of works, so that no one may boast."
 };
 
-const ProfileEditForm: React.FC = () => {
+interface ProfileEditFormProps {
+  onComplete?: () => void;
+}
+
+const ProfileEditForm: React.FC<ProfileEditFormProps> = ({ onComplete }) => {
   const { userProfile, updateProfile } = useAuth();
-  const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState<Partial<UserProfile>>({
     name: userProfile?.name || '',
     email: userProfile?.email || '',
@@ -189,56 +191,9 @@ const ProfileEditForm: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     updateProfile(formData);
-    setIsEditing(false);
     toast.success("Profile updated successfully");
+    if (onComplete) onComplete();
   };
-
-  const handleCancel = () => {
-    setFormData({
-      name: userProfile?.name || '',
-      email: userProfile?.email || '',
-      phoneNumber: userProfile?.phoneNumber || '',
-      birthday: userProfile?.birthday || '',
-      favoriteVerse: userProfile?.favoriteVerse || '',
-      favoriteVerseReference: userProfile?.favoriteVerseReference || '',
-    });
-    setIsEditing(false);
-  };
-
-  if (!isEditing) {
-    return (
-      <div className="space-y-4">
-        <div className="flex justify-between items-center">
-          <h3 className="text-md font-semibold text-church-darkBrown">Your Information</h3>
-          <Button 
-            variant="outline" 
-            className="text-church-copper border-church-tan" 
-            onClick={() => setIsEditing(true)}
-          >
-            Edit Profile
-          </Button>
-        </div>
-        <div className="grid grid-cols-1 gap-2">
-          <div>
-            <p className="text-sm font-medium text-church-darkBrown">Name:</p>
-            <p className="text-sm text-church-brown">{userProfile?.name}</p>
-          </div>
-          <div>
-            <p className="text-sm font-medium text-church-darkBrown">Email:</p>
-            <p className="text-sm text-church-brown">{userProfile?.email}</p>
-          </div>
-          <div>
-            <p className="text-sm font-medium text-church-darkBrown">Phone:</p>
-            <p className="text-sm text-church-brown">{userProfile?.phoneNumber}</p>
-          </div>
-          <div>
-            <p className="text-sm font-medium text-church-darkBrown">Birthday:</p>
-            <p className="text-sm text-church-brown">{userProfile?.birthday}</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -364,14 +319,6 @@ const ProfileEditForm: React.FC = () => {
       </div>
       
       <div className="flex space-x-2 justify-end">
-        <Button 
-          type="button" 
-          variant="outline" 
-          onClick={handleCancel}
-          className="border-church-tan text-church-brown"
-        >
-          Cancel
-        </Button>
         <Button 
           type="submit"
           className="bg-church-gold text-white hover:bg-church-copper"

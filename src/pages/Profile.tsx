@@ -1,3 +1,4 @@
+
 import React from 'react';
 import TopNavbar from '@/components/TopNavbar';
 import BottomNavbar from '@/components/BottomNavbar';
@@ -9,11 +10,12 @@ import ChurchInfoWidget from '@/components/ChurchInfoWidget';
 import BibleVerseWidget from '@/components/BibleVerseWidget';
 import ProfileEditForm from '@/components/ProfileEditForm';
 import { useAuth } from '@/contexts/AuthContext';
-import { BookOpen } from 'lucide-react';
+import { BookOpen, Edit } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
 
 const Profile = () => {
   const { isLoggedIn, userProfile, login } = useAuth();
+  const [isEditing, setIsEditing] = React.useState(false);
   
   // Church info data
   const churchInfo = {
@@ -27,9 +29,20 @@ const Profile = () => {
 
   // Get attendance data based on attendance percentage
   const getAttendanceData = (attendance: number) => {
-    if (attendance >= 70) return { value: 100, colorClass: "bg-green-500" };
-    if (attendance >= 40) return { value: 66, colorClass: "bg-yellow-500" };
-    return { value: 33, colorClass: "bg-red-500" };
+    if (attendance >= 70) return { 
+      values: [100, 100, 100], 
+      colorClasses: ["bg-green-500", "bg-green-500", "bg-green-500"] 
+    }; // Good attendance
+    
+    if (attendance >= 40) return { 
+      values: [100, 100, 0], 
+      colorClasses: ["bg-yellow-500", "bg-yellow-500", "bg-gray-200"] 
+    }; // Average attendance
+    
+    return { 
+      values: [100, 0, 0], 
+      colorClasses: ["bg-red-500", "bg-gray-200", "bg-gray-200"] 
+    }; // Poor attendance
   };
 
   // Mock attendance data for the profile
@@ -89,94 +102,141 @@ const Profile = () => {
             </Card>
           </div>
         ) : (
-          <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="md:col-span-2 space-y-4">
-              <Card>
-                <CardHeader className="flex flex-row items-center gap-4 pb-2">
-                  <Avatar className="h-16 w-16">
-                    <AvatarImage src={userProfile?.avatarUrl || ""} alt={userProfile?.name} />
-                    <AvatarFallback className="bg-church-copper text-white text-lg">
-                      {userProfile?.name.split(' ').map(n => n[0]).join('')}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <CardTitle>{userProfile?.name}</CardTitle>
-                    <p className="text-sm text-church-brown">{userProfile?.role}</p>
-                    <p className="text-xs text-church-brown">Member since {userProfile?.memberSince}</p>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <Tabs defaultValue="info" className="w-full">
-                    <TabsList className="w-full">
-                      <TabsTrigger value="info" className="flex-1">Personal Info</TabsTrigger>
-                      <TabsTrigger value="edit" className="flex-1">Edit Profile</TabsTrigger>
-                      <TabsTrigger value="involvement" className="flex-1">Church Involvement</TabsTrigger>
-                    </TabsList>
-                    <TabsContent value="info" className="space-y-2 pt-4">
+          <>
+            {isEditing ? (
+              <div className="w-full max-w-6xl">
+                <Card>
+                  <CardHeader className="flex flex-row items-center justify-between pb-2">
+                    <div className="flex items-center gap-4">
+                      <Avatar className="h-16 w-16">
+                        <AvatarImage src={userProfile?.avatarUrl || ""} alt={userProfile?.name} />
+                        <AvatarFallback className="bg-church-copper text-white text-lg">
+                          {userProfile?.name.split(' ').map(n => n[0]).join('')}
+                        </AvatarFallback>
+                      </Avatar>
                       <div>
-                        <p className="text-sm font-medium text-church-darkBrown">Email:</p>
-                        <p className="text-sm text-church-brown">{userProfile?.email}</p>
+                        <CardTitle>{userProfile?.name}</CardTitle>
+                        <p className="text-sm text-church-brown">{userProfile?.role}</p>
+                        <p className="text-xs text-church-brown">Member since {userProfile?.memberSince}</p>
                       </div>
-                      <div>
-                        <p className="text-sm font-medium text-church-darkBrown">Phone:</p>
-                        <p className="text-sm text-church-brown">{userProfile?.phoneNumber}</p>
-                      </div>
-                      <div>
-                        <p className="text-sm font-medium text-church-darkBrown">Birthday:</p>
-                        <p className="text-sm text-church-brown">{userProfile?.birthday}</p>
-                      </div>
-                      {userProfile?.favoriteVerseReference && (
+                    </div>
+                    <Button 
+                      variant="outline" 
+                      className="text-church-copper border-church-tan" 
+                      onClick={() => setIsEditing(false)}
+                    >
+                      Cancel
+                    </Button>
+                  </CardHeader>
+                  <CardContent>
+                    <ProfileEditForm onComplete={() => setIsEditing(false)} />
+                  </CardContent>
+                </Card>
+              </div>
+            ) : (
+              <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="md:col-span-2 space-y-4">
+                  <Card>
+                    <CardHeader className="flex flex-row items-center justify-between gap-4 pb-2">
+                      <div className="flex items-center gap-4">
+                        <Avatar className="h-16 w-16">
+                          <AvatarImage src={userProfile?.avatarUrl || ""} alt={userProfile?.name} />
+                          <AvatarFallback className="bg-church-copper text-white text-lg">
+                            {userProfile?.name.split(' ').map(n => n[0]).join('')}
+                          </AvatarFallback>
+                        </Avatar>
                         <div>
-                          <p className="text-sm font-medium text-church-darkBrown">Favorite Verse:</p>
-                          <p className="text-sm text-church-brown">{userProfile.favoriteVerseReference}</p>
-                        </div>
-                      )}
-                      <div>
-                        <p className="text-sm font-medium text-church-darkBrown">Attendance:</p>
-                        <div className="mt-1">
-                          <Progress value={attendanceData.value} className="h-3 bg-gray-200" colorClass={attendanceData.colorClass} />
+                          <CardTitle>{userProfile?.name}</CardTitle>
+                          <p className="text-sm text-church-brown">{userProfile?.role}</p>
+                          <p className="text-xs text-church-brown">Member since {userProfile?.memberSince}</p>
                         </div>
                       </div>
-                    </TabsContent>
-                    <TabsContent value="edit" className="pt-4">
-                      <ProfileEditForm />
-                    </TabsContent>
-                    <TabsContent value="involvement" className="space-y-2 pt-4">
-                      <div>
-                        <p className="text-sm font-medium text-church-darkBrown">Small Groups:</p>
-                        <p className="text-sm text-church-brown">Young Adults, Prayer Warriors</p>
-                      </div>
-                      <div>
-                        <p className="text-sm font-medium text-church-darkBrown">Serving Teams:</p>
-                        <p className="text-sm text-church-brown">Greeting Team, Tech Team</p>
-                      </div>
-                      <div>
-                        <p className="text-sm font-medium text-church-darkBrown">Leadership:</p>
-                        <p className="text-sm text-church-brown">Small Group Leader</p>
-                      </div>
-                    </TabsContent>
-                  </Tabs>
-                </CardContent>
-              </Card>
-              
-              {/* Display favorite verse below profile info if available */}
-              {userProfile?.favoriteVerse && <FavoriteVerseCard />}
-            </div>
-            
-            <div className="space-y-4">
-              <ChurchInfoWidget 
-                name={churchInfo.name}
-                denomination={churchInfo.denomination}
-                address={churchInfo.address}
-                bannerImageUrl={churchInfo.bannerImageUrl}
-                phoneNumber={churchInfo.phoneNumber}
-                email={churchInfo.email}
-              />
-              
-              {/* Always display the daily verse widget on the side */}
-              <BibleVerseWidget />
-            </div>
-          </div>
+                      <Button 
+                        variant="outline" 
+                        className="text-church-copper border-church-tan flex items-center gap-2" 
+                        onClick={() => setIsEditing(true)}
+                      >
+                        <Edit size={16} />
+                        Edit Profile
+                      </Button>
+                    </CardHeader>
+                    <CardContent>
+                      <Tabs defaultValue="info" className="w-full">
+                        <TabsList className="w-full">
+                          <TabsTrigger value="info" className="flex-1">Personal Info</TabsTrigger>
+                          <TabsTrigger value="involvement" className="flex-1">Church Involvement</TabsTrigger>
+                        </TabsList>
+                        <TabsContent value="info" className="space-y-2 pt-4">
+                          <div>
+                            <p className="text-sm font-medium text-church-darkBrown">Attendance:</p>
+                            <div className="mt-1 flex gap-1 w-full">
+                              {attendanceData.values.map((value, i) => (
+                                <Progress 
+                                  key={i}
+                                  value={value} 
+                                  className="h-3 bg-gray-200 flex-1" 
+                                  colorClass={attendanceData.colorClasses[i]} 
+                                />
+                              ))}
+                            </div>
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-church-darkBrown">Email:</p>
+                            <p className="text-sm text-church-brown">{userProfile?.email}</p>
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-church-darkBrown">Phone:</p>
+                            <p className="text-sm text-church-brown">{userProfile?.phoneNumber}</p>
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-church-darkBrown">Birthday:</p>
+                            <p className="text-sm text-church-brown">{userProfile?.birthday}</p>
+                          </div>
+                          {userProfile?.favoriteVerseReference && (
+                            <div>
+                              <p className="text-sm font-medium text-church-darkBrown">Favorite Verse:</p>
+                              <p className="text-sm text-church-brown">{userProfile.favoriteVerseReference}</p>
+                            </div>
+                          )}
+                        </TabsContent>
+                        <TabsContent value="involvement" className="space-y-2 pt-4">
+                          <div>
+                            <p className="text-sm font-medium text-church-darkBrown">Small Groups:</p>
+                            <p className="text-sm text-church-brown">Young Adults, Prayer Warriors</p>
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-church-darkBrown">Serving Teams:</p>
+                            <p className="text-sm text-church-brown">Greeting Team, Tech Team</p>
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-church-darkBrown">Leadership:</p>
+                            <p className="text-sm text-church-brown">Small Group Leader</p>
+                          </div>
+                        </TabsContent>
+                      </Tabs>
+                    </CardContent>
+                  </Card>
+                  
+                  {/* Display favorite verse below profile info if available */}
+                  {userProfile?.favoriteVerse && <FavoriteVerseCard />}
+                </div>
+                
+                <div className="space-y-4">
+                  <ChurchInfoWidget 
+                    name={churchInfo.name}
+                    denomination={churchInfo.denomination}
+                    address={churchInfo.address}
+                    bannerImageUrl={churchInfo.bannerImageUrl}
+                    phoneNumber={churchInfo.phoneNumber}
+                    email={churchInfo.email}
+                  />
+                  
+                  {/* Always display the daily verse widget on the side */}
+                  <BibleVerseWidget />
+                </div>
+              </div>
+            )}
+          </>
         )}
       </main>
       

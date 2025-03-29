@@ -30,10 +30,22 @@ const GroupMembersList: React.FC<GroupMembersListProps> = ({ members }) => {
 
   // Get attendance data based on attendance percentage
   const getAttendanceData = (attendance?: number) => {
-    if (attendance === undefined) return { value: 0, colorClass: "" }; // No data
-    if (attendance >= 70) return { value: 100, colorClass: "bg-green-500" }; // Good attendance
-    if (attendance >= 40) return { value: 66, colorClass: "bg-yellow-500" }; // Average attendance
-    return { value: 33, colorClass: "bg-red-500" }; // Poor attendance
+    if (attendance === undefined) return { values: [0, 0, 0], colorClasses: ["", "", ""] }; // No data
+    
+    if (attendance >= 70) return { 
+      values: [100, 100, 100], 
+      colorClasses: ["bg-green-500", "bg-green-500", "bg-green-500"] 
+    }; // Good attendance
+    
+    if (attendance >= 40) return { 
+      values: [100, 100, 0], 
+      colorClasses: ["bg-yellow-500", "bg-yellow-500", "bg-gray-200"] 
+    }; // Average attendance
+    
+    return { 
+      values: [100, 0, 0], 
+      colorClasses: ["bg-red-500", "bg-gray-200", "bg-gray-200"] 
+    }; // Poor attendance
   };
 
   return (
@@ -48,7 +60,7 @@ const GroupMembersList: React.FC<GroupMembersListProps> = ({ members }) => {
               <TableHead className="w-12"></TableHead>
               <TableHead>Name</TableHead>
               <TableHead>Role</TableHead>
-              <TableHead className="w-24">Attendance</TableHead>
+              <TableHead className="w-1/3">Attendance</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -75,11 +87,16 @@ const GroupMembersList: React.FC<GroupMembersListProps> = ({ members }) => {
                   <TableCell>{member.role}</TableCell>
                   <TableCell>
                     {member.attendance !== undefined && (
-                      <Progress 
-                        value={attendanceData.value} 
-                        className="h-2 bg-gray-200 w-full" 
-                        colorClass={attendanceData.colorClass} 
-                      />
+                      <div className="flex gap-1 w-full">
+                        {attendanceData.values.map((value, i) => (
+                          <Progress 
+                            key={i}
+                            value={value} 
+                            className="h-2 bg-gray-200 flex-1" 
+                            colorClass={attendanceData.colorClasses[i]} 
+                          />
+                        ))}
+                      </div>
                     )}
                   </TableCell>
                 </TableRow>
