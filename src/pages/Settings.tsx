@@ -66,7 +66,7 @@ const Settings = () => {
       
       <main className="flex-1 overflow-auto px-4 py-4 flex flex-col items-center bg-church-lightCream">
         <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="md:col-span-2">
+          <div className={`md:col-span-${isLoggedIn ? '2' : '3'}`}>
             {!isLoggedIn ? (
               <div className="flex flex-col items-center justify-center h-full text-center">
                 <Card className="w-full">
@@ -162,21 +162,23 @@ const Settings = () => {
             )}
           </div>
           
-          <div className="space-y-4">
-            <ChurchInfoWidget 
-              name={churchInfo.name}
-              denomination={churchInfo.denomination}
-              address={churchInfo.address}
-              bannerImageUrl={churchInfo.bannerImageUrl}
-              phoneNumber={churchInfo.phoneNumber}
-              email={churchInfo.email}
-            />
-            
-            <BibleVerseWidget 
-              verse="Whatever you do, work heartily, as for the Lord and not for men."
-              reference="Colossians 3:23"
-            />
-          </div>
+          {isLoggedIn && (
+            <div className="space-y-4">
+              <ChurchInfoWidget 
+                name={churchInfo.name}
+                denomination={churchInfo.denomination}
+                address={churchInfo.address}
+                bannerImageUrl={churchInfo.bannerImageUrl}
+                phoneNumber={churchInfo.phoneNumber}
+                email={churchInfo.email}
+              />
+              
+              <BibleVerseWidget 
+                verse="Whatever you do, work heartily, as for the Lord and not for men."
+                reference="Colossians 3:23"
+              />
+            </div>
+          )}
         </div>
       </main>
       

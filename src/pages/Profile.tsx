@@ -49,7 +49,7 @@ const Profile = () => {
       
       <main className="flex-1 overflow-auto px-4 py-4 flex flex-col items-center bg-church-lightCream">
         <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="md:col-span-2 space-y-4">
+          <div className={`md:col-span-${isLoggedIn ? '2' : '3'} space-y-4`}>
             {!isLoggedIn ? (
               <Card>
                 <CardHeader>
@@ -119,21 +119,23 @@ const Profile = () => {
             )}
           </div>
           
-          <div className="space-y-4">
-            <ChurchInfoWidget 
-              name={churchInfo.name}
-              denomination={churchInfo.denomination}
-              address={churchInfo.address}
-              bannerImageUrl={churchInfo.bannerImageUrl}
-              phoneNumber={churchInfo.phoneNumber}
-              email={churchInfo.email}
-            />
-            
-            <BibleVerseWidget 
-              verse="Trust in the LORD with all your heart, and do not lean on your own understanding."
-              reference="Proverbs 3:5"
-            />
-          </div>
+          {isLoggedIn && (
+            <div className="space-y-4">
+              <ChurchInfoWidget 
+                name={churchInfo.name}
+                denomination={churchInfo.denomination}
+                address={churchInfo.address}
+                bannerImageUrl={churchInfo.bannerImageUrl}
+                phoneNumber={churchInfo.phoneNumber}
+                email={churchInfo.email}
+              />
+              
+              <BibleVerseWidget 
+                verse="Trust in the LORD with all your heart, and do not lean on your own understanding."
+                reference="Proverbs 3:5"
+              />
+            </div>
+          )}
         </div>
       </main>
       
