@@ -74,23 +74,25 @@ const Index = () => {
         onLogin={handleLogin}
       />
       
-      <main className="flex-1 overflow-auto px-4 py-4 space-y-4 bg-church-lightCream">
-        <SmallGroupWidget 
-          groupName="Young Adults" 
-          memberCount={12} 
-          nextMeeting="Tomorrow, 7:00 PM" 
-          location="Fellowship Hall"
-        />
-        
-        <ChurchEventsWidget 
-          services={services} 
-          events={events} 
-        />
-        
-        <PageIndicator
-          totalPages={3}
-          currentPage={0}
-        />
+      <main className="flex-1 overflow-auto px-4 py-4 flex flex-col items-center bg-church-lightCream">
+        <div className="w-full max-w-[33%] space-y-4">
+          <SmallGroupWidget 
+            groupName="Young Adults" 
+            memberCount={12} 
+            nextMeeting="Tomorrow, 7:00 PM" 
+            location="Fellowship Hall"
+          />
+          
+          <ChurchEventsWidget 
+            services={services} 
+            events={events} 
+          />
+          
+          <PageIndicator
+            totalPages={3}
+            currentPage={0}
+          />
+        </div>
       </main>
       
       <BottomNavbar />
