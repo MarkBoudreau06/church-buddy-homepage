@@ -9,8 +9,8 @@ const BottomNavbar: React.FC = () => {
   const tabs = [
     { name: "Home", icon: Home, path: "/" },
     { name: "Events", icon: Calendar, path: "/events" },
-    { name: "Profile", icon: User, path: "/profile" },
     { name: "Groups", icon: Users, path: "/groups" },
+    { name: "Profile", icon: User, path: "/profile" },
     { name: "Settings", icon: Settings, path: "/settings" }
   ];
 
