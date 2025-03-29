@@ -1,5 +1,5 @@
 
-import React, { useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { QrCode } from 'lucide-react';
 
@@ -8,16 +8,31 @@ interface AttendanceCodeWidgetProps {
 }
 
 const AttendanceCodeWidget: React.FC<AttendanceCodeWidgetProps> = ({ isLoggedIn }) => {
-  const attendanceCode = useMemo(() => {
-    if (!isLoggedIn) return "GUEST";
-    
-    // Generate a random string of 6 characters (numbers and lowercase letters)
-    const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
-    let result = '';
-    for (let i = 0; i < 6; i++) {
-      result += characters.charAt(Math.floor(Math.random() * characters.length));
+  const [attendanceCode, setAttendanceCode] = useState<string>("GUEST");
+  
+  useEffect(() => {
+    if (!isLoggedIn) {
+      setAttendanceCode("GUEST");
+      return;
     }
-    return result;
+    
+    // Try to get the stored code from localStorage
+    const storedCode = localStorage.getItem('attendanceCode');
+    
+    if (storedCode) {
+      setAttendanceCode(storedCode);
+    } else {
+      // Generate a new code if one doesn't exist
+      const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+      let result = '';
+      for (let i = 0; i < 6; i++) {
+        result += characters.charAt(Math.floor(Math.random() * characters.length));
+      }
+      
+      // Store the new code
+      localStorage.setItem('attendanceCode', result);
+      setAttendanceCode(result);
+    }
   }, [isLoggedIn]);
 
   return (
