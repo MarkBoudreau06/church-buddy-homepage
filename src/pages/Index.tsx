@@ -12,8 +12,8 @@ const Index = () => {
   const [userName, setUserName] = useState("Guest");
   const { toast } = useToast();
 
-  // Mock data for upcoming service only
-  const upcomingService = [
+  // Mock data for upcoming services
+  const upcomingServices = [
     {
       id: 1,
       name: "Sunday Morning Worship",
@@ -24,8 +24,8 @@ const Index = () => {
     }
   ];
 
-  // Mock data for nearest event only
-  const nextEvent = [
+  // Mock data for events
+  const upcomingEvents = [
     {
       id: 3,
       name: "Youth Group Meeting",
@@ -67,8 +67,8 @@ const Index = () => {
           />
           
           <ChurchEventsWidget 
-            services={upcomingService} 
-            events={nextEvent} 
+            services={upcomingServices} 
+            events={upcomingEvents} 
           />
         </div>
       </main>
