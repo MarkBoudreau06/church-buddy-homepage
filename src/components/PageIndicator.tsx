@@ -17,8 +17,8 @@ const PageIndicator: React.FC<PageIndicatorProps> = ({
           key={index}
           className={`h-2 w-2 rounded-full ${
             index === currentPage 
-              ? 'bg-church-primary' 
-              : 'bg-gray-300'
+              ? 'bg-church-gold' 
+              : 'bg-church-tan'
           }`}
         />
       ))}

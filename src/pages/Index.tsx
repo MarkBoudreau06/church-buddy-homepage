@@ -67,14 +67,14 @@ const Index = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-church-background">
+    <div className="flex flex-col h-screen bg-white">
       <TopNavbar 
         userName={userName} 
         isLoggedIn={isLoggedIn}
         onLogin={handleLogin}
       />
       
-      <main className="flex-1 overflow-auto px-4 py-4 space-y-4">
+      <main className="flex-1 overflow-auto px-4 py-4 space-y-4 bg-church-background">
         <SmallGroupWidget 
           groupName="Young Adults" 
           memberCount={12} 

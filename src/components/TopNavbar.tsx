@@ -15,12 +15,12 @@ const TopNavbar: React.FC<TopNavbarProps> = ({
   onLogin
 }) => {
   return (
-    <nav className="bg-white border-b px-4 py-3 flex items-center justify-between">
+    <nav className="bg-church-cream border-b border-church-tan px-4 py-3 flex items-center justify-between">
       <div className="flex items-center space-x-2">
-        <User size={20} className="text-church-primary" />
-        <span className="font-medium">{userName}</span>
+        <User size={20} className="text-church-copper" />
+        <span className="font-medium text-church-darkBrown">{userName}</span>
       </div>
-      <div className="text-center font-bold text-lg text-church-primary">
+      <div className="text-center font-bold text-lg text-church-gold">
         Church Buddy
       </div>
       <div>
@@ -29,7 +29,7 @@ const TopNavbar: React.FC<TopNavbarProps> = ({
             variant="ghost" 
             size="sm" 
             onClick={onLogin}
-            className="flex items-center gap-1 text-church-primary hover:text-church-accent hover:bg-church-secondary"
+            className="flex items-center gap-1 text-church-copper hover:text-church-darkBrown hover:bg-church-cream"
           >
             <LogIn size={18} />
             <span>Login</span>
