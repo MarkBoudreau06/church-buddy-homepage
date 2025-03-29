@@ -1,4 +1,3 @@
-
 import React from 'react';
 import TopNavbar from '@/components/TopNavbar';
 import BottomNavbar from '@/components/BottomNavbar';
@@ -11,14 +10,14 @@ import { useTheme } from '@/contexts/ThemeContext';
 import { toast } from 'sonner';
 import ChurchInfoWidget from '@/components/ChurchInfoWidget';
 import BibleVerseWidget from '@/components/BibleVerseWidget';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Settings = () => {
   const { theme, setTheme } = useTheme();
   const [notifications, setNotifications] = React.useState(true);
   const [hideDetails, setHideDetails] = React.useState(true);
   
-  // In a real app, this would come from authentication context
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const { isLoggedIn, login, logout } = useAuth();
 
   // Church info data
   const churchInfo = {
@@ -47,22 +46,16 @@ const Settings = () => {
   };
 
   const handleLogout = () => {
-    setIsLoggedIn(false);
-    toast.success("Logged out successfully");
+    logout();
   };
 
   const handleLogin = () => {
-    setIsLoggedIn(true);
-    toast.success("Logged in successfully");
+    login();
   };
 
   return (
     <div className="flex flex-col h-screen bg-church-lightCream">
-      <TopNavbar 
-        userName={isLoggedIn ? "Member" : "Guest"} 
-        isLoggedIn={isLoggedIn}
-        onLogin={handleLogin}
-      />
+      <TopNavbar onLogin={handleLogin} />
       
       <main className="flex-1 overflow-auto px-4 py-4 flex flex-col items-center bg-church-lightCream">
         {!isLoggedIn ? (
