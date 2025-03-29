@@ -72,6 +72,8 @@ const Index = () => {
               memberCount={12} 
               nextMeeting="Tomorrow, 7:00 PM" 
               location="Fellowship Hall"
+              isLoggedIn={isLoggedIn}
+              onLogin={handleLogin}
             />
             
             <ChurchEventsWidget 
