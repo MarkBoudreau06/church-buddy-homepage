@@ -49,21 +49,23 @@ const Profile = () => {
       
       <main className="flex-1 overflow-auto px-4 py-4 flex flex-col items-center bg-church-lightCream">
         <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className={`md:col-span-${isLoggedIn ? '2' : '3'} space-y-4`}>
+          <div className={`md:col-span-${isLoggedIn ? '2' : '3'}`}>
             {!isLoggedIn ? (
-              <Card>
-                <CardHeader>
-                  <CardTitle>Login Required</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-church-darkBrown">
-                    Please log in to view your profile information.
-                  </p>
-                  <Button onClick={handleLogin} className="bg-church-gold text-white hover:bg-church-copper">
-                    Login
-                  </Button>
-                </CardContent>
-              </Card>
+              <div className="flex flex-col items-center justify-center h-full text-center">
+                <Card className="w-full">
+                  <CardHeader>
+                    <CardTitle className="text-xl text-church-gold">Login Required</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <p className="text-church-darkBrown">
+                      Please log in to view your profile information.
+                    </p>
+                    <Button onClick={handleLogin} className="bg-church-gold text-white hover:bg-church-copper">
+                      Login
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
             ) : (
               <Card>
                 <CardHeader className="flex flex-row items-center gap-4 pb-2">
