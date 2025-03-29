@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, BookOpen } from 'lucide-react';
 import BibleVerseWidget from '@/components/BibleVerseWidget';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -18,11 +18,71 @@ const MemberProfile = () => {
   
   // Mock data - in a real app, this would come from an API call based on the memberId
   const members = [
-    { id: 1, name: "John Smith", role: "Leader", avatarUrl: null, attendance: 85, groups: ["Prayer Warriors", "Men's Ministry"], ministries: ["Worship Team", "Teaching"], email: "john.smith@example.com", phone: "(555) 123-5678" },
-    { id: 2, name: "Sarah Johnson", role: "Member", avatarUrl: null, attendance: 73, groups: ["Prayer Warriors", "Women's Ministry"], ministries: ["Children's Ministry"], email: "sarah.johnson@example.com", phone: "(555) 234-5678" },
-    { id: 3, name: "Michael Davis", role: "Member", avatarUrl: null, attendance: 55, groups: ["Prayer Warriors", "Youth Group"], ministries: ["Outreach Team"], email: "michael.davis@example.com", phone: "(555) 345-6789" },
-    { id: 4, name: "Rebecca Wilson", role: "Member", avatarUrl: null, attendance: 32, groups: ["Prayer Warriors"], ministries: ["Greeting Team"], email: "rebecca.wilson@example.com", phone: "(555) 456-7890" },
-    { id: 5, name: "David Thompson", role: "Member", avatarUrl: null, attendance: 92, groups: ["Prayer Warriors", "Bible Study"], ministries: ["Technical Team", "Missions"], email: "david.thompson@example.com", phone: "(555) 567-8901" }
+    { 
+      id: 1, 
+      name: "John Smith", 
+      role: "Leader", 
+      avatarUrl: null, 
+      attendance: 85, 
+      groups: ["Prayer Warriors", "Men's Ministry"], 
+      ministries: ["Worship Team", "Teaching"], 
+      email: "john.smith@example.com", 
+      phone: "(555) 123-5678",
+      favoriteVerse: "For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life.",
+      favoriteVerseReference: "John 3:16"
+    },
+    { 
+      id: 2, 
+      name: "Sarah Johnson", 
+      role: "Member", 
+      avatarUrl: null, 
+      attendance: 73, 
+      groups: ["Prayer Warriors", "Women's Ministry"], 
+      ministries: ["Children's Ministry"], 
+      email: "sarah.johnson@example.com", 
+      phone: "(555) 234-5678",
+      favoriteVerse: "Trust in the LORD with all your heart, and do not lean on your own understanding.",
+      favoriteVerseReference: "Proverbs 3:5"
+    },
+    { 
+      id: 3, 
+      name: "Michael Davis", 
+      role: "Member", 
+      avatarUrl: null, 
+      attendance: 55, 
+      groups: ["Prayer Warriors", "Youth Group"], 
+      ministries: ["Outreach Team"], 
+      email: "michael.davis@example.com", 
+      phone: "(555) 345-6789",
+      favoriteVerse: "I can do all things through him who strengthens me.",
+      favoriteVerseReference: "Philippians 4:13"
+    },
+    { 
+      id: 4, 
+      name: "Rebecca Wilson", 
+      role: "Member", 
+      avatarUrl: null, 
+      attendance: 32, 
+      groups: ["Prayer Warriors"], 
+      ministries: ["Greeting Team"], 
+      email: "rebecca.wilson@example.com", 
+      phone: "(555) 456-7890",
+      favoriteVerse: "But they who wait for the LORD shall renew their strength; they shall mount up with wings like eagles; they shall run and not be weary; they shall walk and not faint.",
+      favoriteVerseReference: "Isaiah 40:31"
+    },
+    { 
+      id: 5, 
+      name: "David Thompson", 
+      role: "Member", 
+      avatarUrl: null, 
+      attendance: 92, 
+      groups: ["Prayer Warriors", "Bible Study"], 
+      ministries: ["Technical Team", "Missions"], 
+      email: "david.thompson@example.com", 
+      phone: "(555) 567-8901",
+      favoriteVerse: "And we know that for those who love God all things work together for good, for those who are called according to his purpose.",
+      favoriteVerseReference: "Romans 8:28"
+    }
   ];
   
   const member = members.find(m => m.id === Number(memberId));
@@ -143,10 +203,37 @@ const MemberProfile = () => {
             </CardContent>
           </Card>
           
-          <BibleVerseWidget 
-            verse="For we are his workmanship, created in Christ Jesus for good works, which God prepared beforehand, that we should walk in them."
-            reference="Ephesians 2:10"
-          />
+          {member.favoriteVerse ? (
+            <Card className="shadow-md border-church-tan overflow-hidden relative h-64">
+              <div className="absolute inset-0 w-full h-full">
+                <img 
+                  src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=800&q=80"
+                  alt="Nature background" 
+                  className="object-cover w-full h-full"
+                />
+                <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+              </div>
+              
+              <CardHeader className="pb-2 relative z-10">
+                <CardTitle className="text-md flex items-center gap-2 text-white">
+                  <BookOpen size={18} />
+                  {member.name}'s Favorite Verse
+                </CardTitle>
+              </CardHeader>
+              
+              <CardContent className="relative z-10">
+                <p className="text-white italic mb-2 text-lg font-medium">"{member.favoriteVerse}"</p>
+                <p className="text-right text-church-cream font-medium">
+                  — {member.favoriteVerseReference}
+                </p>
+              </CardContent>
+            </Card>
+          ) : (
+            <BibleVerseWidget 
+              verse="For we are his workmanship, created in Christ Jesus for good works, which God prepared beforehand, that we should walk in them."
+              reference="Ephesians 2:10"
+            />
+          )}
         </div>
       </main>
       

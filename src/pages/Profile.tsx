@@ -1,4 +1,3 @@
-
 import React from 'react';
 import TopNavbar from '@/components/TopNavbar';
 import BottomNavbar from '@/components/BottomNavbar';
@@ -114,6 +113,12 @@ const Profile = () => {
                         <p className="text-sm font-medium text-church-darkBrown">Birthday:</p>
                         <p className="text-sm text-church-brown">{userProfile?.birthday}</p>
                       </div>
+                      {userProfile?.favoriteVerseReference && (
+                        <div>
+                          <p className="text-sm font-medium text-church-darkBrown">Favorite Verse:</p>
+                          <p className="text-sm text-church-brown">{userProfile.favoriteVerseReference}</p>
+                        </div>
+                      )}
                     </TabsContent>
                     <TabsContent value="edit" className="pt-4">
                       <ProfileEditForm />
