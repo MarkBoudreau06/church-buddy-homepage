@@ -1,3 +1,4 @@
+
 import React from 'react';
 import TopNavbar from '@/components/TopNavbar';
 import BottomNavbar from '@/components/BottomNavbar';
@@ -19,11 +20,11 @@ const Groups = () => {
   };
 
   const members = [
-    { id: 1, name: "John Smith", role: "Leader", avatarUrl: null },
-    { id: 2, name: "Sarah Johnson", role: "Member", avatarUrl: null },
-    { id: 3, name: "Michael Davis", role: "Member", avatarUrl: null },
-    { id: 4, name: "Rebecca Wilson", role: "Member", avatarUrl: null },
-    { id: 5, name: "David Thompson", role: "Member", avatarUrl: null }
+    { id: 1, name: "John Smith", role: "Leader", avatarUrl: null, attendance: 85 },
+    { id: 2, name: "Sarah Johnson", role: "Member", avatarUrl: null, attendance: 73 },
+    { id: 3, name: "Michael Davis", role: "Member", avatarUrl: null, attendance: 55 },
+    { id: 4, name: "Rebecca Wilson", role: "Member", avatarUrl: null, attendance: 32 },
+    { id: 5, name: "David Thompson", role: "Member", avatarUrl: null, attendance: 92 }
   ];
 
   // Church info data

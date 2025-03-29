@@ -1,14 +1,17 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Circle } from 'lucide-react';
 
 interface Member {
   id: number;
   name: string;
   role: string;
   avatarUrl: string | null;
+  attendance?: number; // Percentage of attendance in the last month
 }
 
 interface GroupMembersListProps {
@@ -25,6 +28,14 @@ const GroupMembersList: React.FC<GroupMembersListProps> = ({ members }) => {
       .toUpperCase();
   };
 
+  // Get color based on attendance percentage
+  const getAttendanceColor = (attendance?: number) => {
+    if (attendance === undefined) return "text-gray-300"; // No data
+    if (attendance >= 70) return "text-green-500"; // Good attendance
+    if (attendance >= 40) return "text-yellow-500"; // Average attendance
+    return "text-red-500"; // Poor attendance
+  };
+
   return (
     <Card className="border border-church-tan shadow-sm bg-white">
       <CardHeader className="pb-2">
@@ -37,6 +48,7 @@ const GroupMembersList: React.FC<GroupMembersListProps> = ({ members }) => {
               <TableHead className="w-12"></TableHead>
               <TableHead>Name</TableHead>
               <TableHead>Role</TableHead>
+              <TableHead className="w-20">Attendance</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -53,8 +65,19 @@ const GroupMembersList: React.FC<GroupMembersListProps> = ({ members }) => {
                     )}
                   </Avatar>
                 </TableCell>
-                <TableCell className="font-medium">{member.name}</TableCell>
+                <TableCell className="font-medium">
+                  <Link to={`/profile/${member.id}`} className="text-church-copper hover:text-church-brown hover:underline">
+                    {member.name}
+                  </Link>
+                </TableCell>
                 <TableCell>{member.role}</TableCell>
+                <TableCell>
+                  <Circle 
+                    size={16} 
+                    className={`fill-current ${getAttendanceColor(member.attendance)}`}
+                    strokeWidth={0}
+                  />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

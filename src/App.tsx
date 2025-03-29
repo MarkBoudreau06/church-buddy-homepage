@@ -10,6 +10,7 @@ import Events from "./pages/Events";
 import Profile from "./pages/Profile";
 import Groups from "./pages/Groups";
 import Settings from "./pages/Settings";
+import MemberProfile from "./pages/MemberProfile";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +26,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/events" element={<Events />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/:memberId" element={<MemberProfile />} />
             <Route path="/groups" element={<Groups />} />
             <Route path="/settings" element={<Settings />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
