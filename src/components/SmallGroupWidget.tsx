@@ -3,13 +3,13 @@ import React from 'react';
 import { Users, ChevronRight, LogIn } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useAuth } from '@/contexts/AuthContext';
 
 interface SmallGroupWidgetProps {
   groupName: string;
   memberCount: number;
   nextMeeting: string;
   location: string;
-  isLoggedIn: boolean;
   onLogin?: () => void;
 }
 
@@ -18,15 +18,21 @@ const SmallGroupWidget: React.FC<SmallGroupWidgetProps> = ({
   memberCount = 12,
   nextMeeting = "Tomorrow, 7:00 PM",
   location = "Fellowship Hall",
-  isLoggedIn = false,
   onLogin
 }) => {
+  const { isLoggedIn, login } = useAuth();
+  
+  const handleLogin = () => {
+    login();
+    if (onLogin) onLogin();
+  };
+  
   if (!isLoggedIn) {
     return (
       <Card className="border border-church-tan shadow-sm hover:shadow-md transition-shadow bg-white relative">
         <div className="absolute inset-0 bg-white/80 backdrop-blur-sm z-10 flex flex-col items-center justify-center">
           <Button 
-            onClick={onLogin}
+            onClick={handleLogin}
             className="bg-church-copper hover:bg-church-darkBrown text-white flex items-center gap-2"
           >
             <LogIn size={18} />

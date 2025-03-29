@@ -9,11 +9,12 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
 import { ArrowLeft } from 'lucide-react';
 import BibleVerseWidget from '@/components/BibleVerseWidget';
+import { useAuth } from '@/contexts/AuthContext';
 
 const MemberProfile = () => {
   const { memberId } = useParams();
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
+  const { isLoggedIn } = useAuth();
   
   // Mock data - in a real app, this would come from an API call based on the memberId
   const members = [
@@ -45,11 +46,7 @@ const MemberProfile = () => {
   if (!member) {
     return (
       <div className="flex flex-col h-screen bg-church-lightCream">
-        <TopNavbar 
-          userName={isLoggedIn ? "Member" : "Guest"} 
-          isLoggedIn={isLoggedIn}
-          onLogin={() => setIsLoggedIn(true)}
-        />
+        <TopNavbar />
         <main className="flex-1 overflow-auto px-4 py-4 flex flex-col items-center">
           <Card className="w-full max-w-md">
             <CardHeader>
@@ -70,11 +67,7 @@ const MemberProfile = () => {
 
   return (
     <div className="flex flex-col h-screen bg-church-lightCream">
-      <TopNavbar 
-        userName={isLoggedIn ? "Member" : "Guest"} 
-        isLoggedIn={isLoggedIn}
-        onLogin={() => setIsLoggedIn(true)}
-      />
+      <TopNavbar />
       
       <main className="flex-1 overflow-auto px-4 py-4 flex flex-col items-center">
         <div className="w-full max-w-3xl space-y-4">
@@ -108,8 +101,7 @@ const MemberProfile = () => {
                 <div className="flex items-center gap-3">
                   <Progress 
                     value={member.attendance} 
-                    className="h-2" 
-                    indicatorClassName={getAttendanceColor(member.attendance)} 
+                    className={`h-2 ${getAttendanceColor(member.attendance)}`}
                   />
                   <span className="text-sm">{member.attendance}%</span>
                 </div>
